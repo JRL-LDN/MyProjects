@@ -106,6 +106,23 @@ class CarRentalCompany():
         '''for car in self.carList:
                 if(car.getCarNumber() == carNumber ):
                     car.hireThisCar()'''
+    def ReturnACar(self, carNumber, customerLicense):
+        foundCar = None
+        for car in self.carList:
+            if car.getCarNumber() == carNumber:
+                foundCar = car
+                break
+
+        if foundCar is None:
+            print("Car does not exist")
+            return
+
+        if carNumber not in  self.CarCustomerMap.keys():
+            print("This car is not currently rented, so it cannot be returned")
+            return
+        del self.CarCustomerMap[carNumber]
+
+        foundCar.returnThisCar()
 
     def printRentedCarDetails(self):
         for car in self.CarCustomerMap:
@@ -132,6 +149,13 @@ def main():
     print("Already rented cars:")
     print("----------------------")
 
+    print("----------------------")
+    print("Returned cars:")
+    print("----------------------")
+
+    crc.ReturnACar("CD123", "123PQR456")
+
+
     crc.printRentedCarDetails()
 
     print("----------------------")
@@ -142,6 +166,10 @@ def main():
 
     print("----------------------")
     print("Already rented cars:")
+    print("----------------------")
+
+    print("----------------------")
+    print("Returned car details:")
     print("----------------------")
 
     crc.printRentedCarDetails()
